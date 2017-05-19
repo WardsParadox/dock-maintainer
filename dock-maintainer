@@ -1,0 +1,66 @@
+#!/usr/bin/python
+'''
+A wrapper for dockutil that manages a specified users dock with a server based plist for the list.
+'''
+
+import time
+import plistlib
+import os
+import logging
+from Foundation import kCFPreferencesCurrentHost, \
+                       kCFPreferencesAnyUser, \
+                       CFPreferencesCopyValue
+import requests
+
+logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s',
+                    datefmt='%Y-%m-%d %I:%M:%S %p',
+                    level=logging.INFO,
+                    filename=os.path.expanduser('~/Library/Logs/outset.log'))
+stdout_logging = logging.StreamHandler()
+stdout_logging.setFormatter(logging.Formatter())
+logging.getLogger().addHandler(stdout_logging)
+
+
+keys = {}
+keys["ManagedUser"] = CFPreferencesCopyValue("ManagedUser",
+                                             "com.github.wardsparadox.dockutilserver",
+                                             kCFPreferencesAnyUser,
+                                             kCFPreferencesCurrentHost)
+keys["ServerURL"] = CFPreferencesCopyValue("ServerURL",
+                                           "com.github.wardsparadox.dockutilserver",
+                                           kCFPreferencesAnyUser,
+                                           kCFPreferencesCurrentHost)
+
+path = os.path.expanduser("~/Library/Application Support/com.github.wardsparadox.dockutilserver")
+plistfile = os.path.join(path, keys["ManagedUser"])
+url = os.path.join(keys["ServerURL"], keys["ManagedUser"])
+
+
+def downloadFile(filepath):
+    stream = requests.get(url, stream=True)
+    with open(filepath,'w') as download:
+        for chunk in stream.iter_content(chunk_size=1024):
+            if chunk:
+                download.write(chunk)
+    return filepath
+
+def getPlist():
+    if os.path.exists(path):
+        logging.info("Path already exists, proceeding")
+    else:
+        logging.info("Path does not exist, creating")
+        os.makedirs(path)
+    if os.path.isfile(plistfile):
+        checkdate = requests.head(url)
+        servermod = time.mktime(time.strptime(checkdate.headers["Last-Modified"],
+                                              '%a, %d %b %Y %H:%M:%S GMT'))
+        lastmod = time.gmtime(os.path.getmtime(plistfile))
+        if servermod > lastmod:
+            print "Servmod is greater"
+            logging.info("File not found, downloading")
+            downloadFile(plistfile)
+        else:
+            print "Local file is same or newer"
+    return plistlib.readPlist(plistfile)
+
+plist = getPlist()
