@@ -33,7 +33,11 @@ I recommend using [Munki-Pkg](https://github.com/munki/munki-pkg) with both scen
 
 ## Preferences Needing to be set on the machine:
 domain: com.github.wardsparadox.dock-maintainer
-| Keys | Value Type | Description |
---|---|--
-  |   |  
-  |   |  
+ManagedUser - Which user to run for
+ServerURL - path to web server folder holding all plists for user
+```
+{
+    ManagedUser = "student";
+    ServerURL = "http://example.com/munki_repo/docksetups";
+}
+```
