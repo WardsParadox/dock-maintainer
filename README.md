@@ -1,6 +1,8 @@
 # dockutil-server
 Manages dock for a specified account. I recommend using this with [Outset](https://github.com/chilcote/outset) and [Munki](https://github.com/munki/munki) (Outset for launching files as needed, Munki for hosting the `docksetup` files as it's web server requirements mirror the ones here)
+
 Article explaining this tool: https://wardsparadox.github.io/2017/05/29/dock-maintainer-defined/
+
 SSTP Install Guide: [Install Guide.md](dock-maintainer/Install Guide.md)
 
 **Please file an issue if you have issues. I am not the best of programmers.
