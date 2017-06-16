@@ -7,12 +7,6 @@ SSTP Install Guide: [Install Guide.md](https://github.com/WardsParadox/dock-main
 
 **Please file an issue if you have issues. I am not the best of programmers.
 
-TODO:
-- [x] Check Preferences
-- [x] Check if file is newer on server (download then instead of always downloading)
-- [x] Break into two parts.
-- [x] Write out which apps have been added to dock. (Only add items as needed instead of always flushing dock)
-
 ***Edge Case:
 When running this utility if you update the plist on the computer or manually modify the dock. Things may not work as intended if either of those options are used.***
 
