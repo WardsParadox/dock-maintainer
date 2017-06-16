@@ -3,7 +3,7 @@ Manages dock for a specified account. I recommend using this with [Outset](https
 
 Article explaining this tool: https://wardsparadox.github.io/2017/05/29/dock-maintainer-defined/
 
-SSTP Install Guide: [Install Guide.md](dock-maintainer/Install Guide.md)
+SSTP Install Guide: [Install Guide.md](https://github.com/WardsParadox/dock-maintainer/blob/master/Install%20Guide.md)
 
 **Please file an issue if you have issues. I am not the best of programmers.
 
