@@ -1,13 +1,11 @@
 # dockutil-server
 Manages dock for a specified account. I recommend using this with [Outset](https://github.com/chilcote/outset) and [Munki](https://github.com/munki/munki) (Outset for launching files as needed, Munki for hosting the `docksetup` files as it's web server requirements mirror the ones here)
 
-**Please file an issue if you have issues. I am not the best of programmers.
+Article explaining this tool: https://wardsparadox.github.io/2017/05/29/dock-maintainer-defined/
 
-TODO:
-- [x] Check Preferences
-- [x] Check if file is newer on server (download then instead of always downloading)
-- [x] Break into two parts.
-- [x] Write out which apps have been added to dock. (Only add items as needed instead of always flushing dock)
+SSTP Install Guide: [Install Guide.md](https://github.com/WardsParadox/dock-maintainer/blob/master/Install%20Guide.md)
+
+**Please file an issue if you have issues. I am not the best of programmers.
 
 ***Edge Case:
 When running this utility if you update the plist on the computer or manually modify the dock. Things may not work as intended if either of those options are used.***
