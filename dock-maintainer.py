@@ -8,7 +8,7 @@ import os
 import logging
 from Foundation import kCFPreferencesCurrentHost, \
                        kCFPreferencesAnyUser, \
-                       CFPreferencesCopyValue, \
+                       CFPreferencesCopyAppValue, \
                        CFPreferencesSetMultiple, \
                        kCFPreferencesCurrentUser
 
@@ -86,10 +86,8 @@ def main():
     Main Stuff
     '''
     keys = {}
-    keys["ManagedUser"] = CFPreferencesCopyValue("ManagedUser",
-                                                 "com.github.wardsparadox.dock-maintainer",
-                                                 kCFPreferencesAnyUser,
-                                                 kCFPreferencesCurrentHost)
+    keys["ManagedUser"] = CFPreferencesCopyAppValue("ManagedUser",
+                                                 "com.github.wardsparadox.dock-maintainer")
     if keys["ManagedUser"] is None:
         logging.error("No ManagedUser Preference set!"
                       "Please set that via defaults write"

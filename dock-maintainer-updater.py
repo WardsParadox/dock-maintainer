@@ -12,9 +12,7 @@ import sys
 import subprocess
 import logging
 import xattr
-from Foundation import kCFPreferencesCurrentHost, \
-                       kCFPreferencesAnyUser, \
-                       CFPreferencesCopyValue
+from Foundation import CFPreferencesCopyAppValue
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s',
                     datefmt='%Y-%m-%d %I:%M:%S %p',
@@ -59,15 +57,11 @@ def main():
     - Downloads plist if needed
     '''
     keys = {}
-    keys["ManagedUser"] = CFPreferencesCopyValue("ManagedUser",
-                                                 "com.github.wardsparadox.dock-maintainer",
-                                                 kCFPreferencesAnyUser,
-                                                 kCFPreferencesCurrentHost)
+    keys["ManagedUser"] = CFPreferencesCopyAppValue("ManagedUser",
+                                                 "com.github.wardsparadox.dock-maintainer")
 
-    keys["ServerURL"] = CFPreferencesCopyValue("ServerURL",
-                                               "com.github.wardsparadox.dock-maintainer",
-                                               kCFPreferencesAnyUser,
-                                               kCFPreferencesCurrentHost)
+    keys["ServerURL"] = CFPreferencesCopyAppValue("ServerURL",
+                                               "com.github.wardsparadox.dock-maintainer")
 
 
     path = os.path.realpath("/Library/Application Support/com.github.wardsparadox.dock-maintainer")
