@@ -8,8 +8,6 @@ import urllib2
 import datetime
 from time import mktime
 import os
-import sys
-import subprocess
 import logging
 import xattr
 from Foundation import CFPreferencesCopyAppValue
@@ -33,21 +31,17 @@ def downloadFile(url, filepath, attributedate):
     logging.info("Downloaded File to %s", filepath)
     return filepath
 
-def wait_for_network():
-    """Wait until network access is up."""
-    # Wait up to 180 seconds for scutil dynamic store to register DNS
-    cmd = [
-        '/usr/sbin/scutil',
-        '-w', 'State:/Network/Global/DNS',
-        '-t', '180'
-    ]
-    task = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = task.communicate()
-    if task.returncode != 0:
-        logging.error("Network did not come up after 3 minutes. Aborting")
-        sys.exit(1)
-    return True
-
+def wait_for_internet_connection():
+    '''
+    Shameless swipe from stackoverflow.
+    https://stackoverflow.com/a/10609378
+    '''
+    while True:
+        try:
+            response = urllib2.urlopen('https://www.google.com/', timeout=1)
+            return
+        except urllib2.URLError:
+            pass
 
 def main():
     '''
@@ -58,11 +52,12 @@ def main():
     '''
     keys = {}
     keys["ManagedUser"] = CFPreferencesCopyAppValue("ManagedUser",
-                                                 "com.github.wardsparadox.dock-maintainer")
+                                                    "com.github.wardsparadox.dock-maintainer")
 
     keys["ServerURL"] = CFPreferencesCopyAppValue("ServerURL",
-                                               "com.github.wardsparadox.dock-maintainer")
-
+                                                  "com.github.wardsparadox.dock-maintainer")
+    keys["FileName"] = CFPreferencesCopyAppValue("FileName",
+                                                 "com.github.wardsparadox.dock-maintainer")
 
     path = os.path.realpath("/Library/Application Support/com.github.wardsparadox.dock-maintainer")
     if os.path.exists(path):
@@ -76,7 +71,7 @@ def main():
         exit(2)
     else:
         plistfilepath = os.path.join(path, keys["ManagedUser"])
-        completeurl = os.path.join(keys["ServerURL"], keys["ManagedUser"])
+        completeurl = os.path.join(keys["ServerURL"], keys["FileName"])
         try:
             fileurl = urllib2.urlopen(completeurl)
             meta = fileurl.info().getheaders("Last-Modified")[0]
@@ -108,5 +103,5 @@ def main():
         exit(0)
 
 if __name__ == '__main__':
-    wait_for_network()
+    wait_for_internet_connection()
     main()
