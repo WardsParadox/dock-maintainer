@@ -7,7 +7,6 @@ import plistlib
 import os
 import logging
 from Foundation import kCFPreferencesCurrentHost, \
-                       kCFPreferencesAnyUser, \
                        CFPreferencesCopyAppValue, \
                        CFPreferencesSetMultiple, \
                        kCFPreferencesCurrentUser
