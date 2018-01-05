@@ -184,7 +184,6 @@ def main():
     keys["ManagedUser"] = \
     CFPreferencesCopyAppValue("ManagedUser",
                              "com.github.wardsparadox.dock-maintainer")
-    keys["ManagedUser"] = "zackmccauley"
     if keys["ManagedUser"] is None:
         logging.error("No ManagedUser Preference set!"
                       "Please set that via defaults write"
@@ -193,7 +192,6 @@ def main():
     configPath = os.path.realpath(
         "/Library/Application Support/com.github.wardsparadox.dock-maintainer/")
     try:
-        configPlist = plistlib.readPlist(os.path.join(configPath, keys["ManagedUser"]))
         configPlist = plistlib.readPlist(os.path.join(configPath, keys["ManagedUser"]))
         logging.info("dock-maintainer: Input plist found. Matching docks.")
     except IOError:
