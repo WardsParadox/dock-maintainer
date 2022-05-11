@@ -1,4 +1,13 @@
 # dock-maintainer
+
+## 2022-05-11
+
+Repo archived. If you need something similar: https://github.com/joncrain/dynamic_dock
+
+
+
+
+
 Manages dock for a specified account. I recommend using this with [Outset](https://github.com/chilcote/outset) and [Munki](https://github.com/munki/munki) (Outset for launching files as needed, Munki for hosting the `docksetup` files as it's web server requirements mirror the ones here)
 
 Article explaining this tool: https://wardsparadox.github.io/2017/05/dock-maintainer-defined/
